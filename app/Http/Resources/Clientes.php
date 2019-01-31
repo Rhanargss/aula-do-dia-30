@@ -4,10 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Emprestimo;
+use App\Cliente;
 
 
-class Emprestimos extends JsonResource
+class Clientes extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,14 +17,13 @@ class Emprestimos extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'id'=>$this->id,
-            'status'=>$this->status,
-            'dataDeInicio'=>$this->dataDeInicio,
-            'dataDeTermino'=>$this->dataDeTermino,
-            'idCliente'=>$this->idCliente,
-            'idLivros'=>$this->idLivros,
+            'telefone'=>$this->telefone,
+            'dataDeNascimento'=>$this->dataDeNascimento,
+            'endereco'=>$this->endereco,
+            'nome'=>$this->nome,
+            'cpf'=>$this->cpf,
 
         ];
 

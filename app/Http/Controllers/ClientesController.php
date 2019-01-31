@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Cliente;
 
+use App\Http\Resources\Clientes;
+
+
 class ClientesController extends Controller{
 
     // Cadastra um cliente //
@@ -19,20 +22,23 @@ class ClientesController extends Controller{
         $cliente->nome = $request->nome;
         $cliente->cpf = $request->cpf;
         $cliente->save();
-        return response()->json([$cliente]);
+        return new Clientes($cliente);
+
     }
 
     // Verifica os clientes cadastrados //
 
     public function list(){
-        return Cliente::all();
+        return Clientes::collection(Cliente::all());
+
     }
 
     // Verifica o cliente pelo id //
 
     public function show($id){
         $cliente = Cliente::findOrFail($id);
-        return response()->json([$cliente]);
+        return new Clientes($cliente);
+
     }
 
     // Edita alguma informação //
@@ -50,7 +56,8 @@ class ClientesController extends Controller{
         if($request->cpf)
         $cliente->cpf = $request->cpf;
         $cliente->save();
-        return response()->json([$cliente]);
+        return new Clientes($cliente);
+
     }
 
     //Deleta algum cadastro// 
@@ -58,6 +65,7 @@ class ClientesController extends Controller{
     public function delete($id){
         Cliente::destroy($id);
         return response()->json(['DELETADO']);
+
     }
 
 }

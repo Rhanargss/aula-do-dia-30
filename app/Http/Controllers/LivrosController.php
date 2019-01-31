@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Livros;
+
+use App\Http\Resources\Livro;
 
 class LivrosController extends Controller{
     
@@ -20,14 +23,14 @@ class LivrosController extends Controller{
         $livros->qntEstoque = $request->qntEstoque;
         $livros->qntEmprestada = $request->qntEmprestada;
         $livros->save();
-        return response()->json([$livros]);
+        return new Livro($livros);
 
     }
 
     // Verifica os livros cadastrados //
 
     public function list(){
-        return Livros::all();
+        return Livro::collection(Livros::all());
 
     }
 
@@ -35,7 +38,7 @@ class LivrosController extends Controller{
 
     public function show($id){
         $livros = Livros::findOrFail($id);
-        return response()->json([$livros]);
+        return new Livro($livros);
 
     }
 
@@ -58,7 +61,7 @@ class LivrosController extends Controller{
         if($request->qntEmprestada)
         $livros->qntEmprestada = $request->qntEmprestada;
         $livros->save();
-        return response()->json([$livros]);
+        return new Livro($livros);
 
     }
 
